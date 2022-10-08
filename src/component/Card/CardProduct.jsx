@@ -1,7 +1,11 @@
 const CardProduct = (props) => {
+  function currencyFormat(num) {
+    return "Rp " + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+
   return (
     <div>
-      <div className="bg-white md:w-[17rem] w-[14rem] h-[21rem] rounded-lg overflow-hidden shadow-lg">
+      <div className="bg-white md:w-[21rem] w-[24rem] h-[22rem] rounded-lg overflow-hidden shadow-lg">
         <div>
           <img
             src={
@@ -13,12 +17,14 @@ const CardProduct = (props) => {
             className="h-52 w-full object-cover"
           />
         </div>
-        <div className="p-2 h-full flex flex-col space-y-2">
-          <span className="font-normal text-xs text-yellow-700">
+        <div className="p-2 h-[8rem]  flex flex-col space-y-2">
+          <span className="font-normal text-xs  text-yellow-700">
             SKU : {props.sku}
           </span>
           <h2 className="font-normal text-sm">{props.name}</h2>
-          <span className="font-extrabold">Rp. {props.price}</span>
+          <span className="font-extrabold h-full flex items-end ">
+            {currencyFormat(props.price)}
+          </span>
         </div>
       </div>
     </div>

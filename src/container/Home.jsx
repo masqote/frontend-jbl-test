@@ -5,28 +5,85 @@ import axios from "axios";
 class Home extends Component {
   state = {
     products: [],
+    limit: 6,
+    offset: 0,
+    countProduct: 0,
+    hidden: false,
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:1234/get-product`).then((res) => {
-      this.setState({ products: res.data.data });
-    });
+    this.getProduct();
+
+    window.onscroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
+        setTimeout(() => {
+          this.loadMore();
+        }, 1000);
+      }
+    };
   }
+
+  getProduct() {
+    axios
+      .get(`http://localhost:1234/get-product`, {
+        params: {
+          limit: this.state.limit,
+          offset: this.state.offset,
+        },
+      })
+      .then((res) => {
+        this.setState({
+          products: this.state.products.concat(res.data.data.prod_list),
+          countProduct: res.data.data.count_prod,
+        });
+      });
+  }
+
+  loadMore = () => {
+    this.setState(
+      {
+        offset: this.state.offset + 6,
+      },
+      () => {
+        this.getProduct();
+
+        if (this.state.offset >= this.state.countProduct) {
+          setTimeout(() => {
+            this.setState({
+              hidden: true,
+            });
+          }, 1000);
+        }
+      }
+    );
+  };
 
   render() {
     return (
-      <div className="flex flex-row flex-wrap gap-2 p-4">
-        {this.state.products.map((product) => {
-          return (
-            <CardProduct
-              key={product.sku}
-              sku={product.sku}
-              name={product.name}
-              price={product.price}
-              image={product.image}
-            />
-          );
-        })}
+      <div>
+        <div className="flex flex-row flex-wrap gap-3 p-4 justify-center md:justify-start items-center">
+          {this.state.products.map((product, index) => {
+            return (
+              <CardProduct
+                key={index}
+                sku={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.image}
+              />
+            );
+          })}
+        </div>
+        <div className="p-4 flex justify-center">
+          {this.state.hidden ? (
+            <div className=" text-bold text-lg">No more data!</div>
+          ) : (
+            <div className="text-bold text-lg animate-pulse">Loading...</div>
+          )}
+        </div>
       </div>
     );
   }
