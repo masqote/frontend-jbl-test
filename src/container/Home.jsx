@@ -5,7 +5,7 @@ import axios from "axios";
 class Home extends Component {
   state = {
     products: [],
-    limit: 6,
+    limit: 8,
     offset: 0,
     countProduct: 0,
     hidden: false,
@@ -45,7 +45,7 @@ class Home extends Component {
   loadMore = () => {
     this.setState(
       {
-        offset: this.state.offset + 6,
+        offset: this.state.offset + 8,
       },
       () => {
         this.getProduct();
@@ -81,7 +81,9 @@ class Home extends Component {
           {this.state.hidden ? (
             <div className=" text-bold text-lg">No more data!</div>
           ) : (
-            <div className="text-bold text-lg animate-pulse">Loading...</div>
+            <div className="text-bold text-lg animate-pulse animate-bounce">
+              Loading...
+            </div>
           )}
         </div>
       </div>
