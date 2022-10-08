@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import CardProduct from "./component/Card/CardProduct";
+import Home from "./container/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CardProduct />
+    <Home />
   </React.StrictMode>
 );
 
