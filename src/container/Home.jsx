@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CardProduct from "../component/Card/CardProduct";
+import Modal from "../component/Modal/Modal";
 import axios from "axios";
 
 class Home extends Component {
@@ -9,6 +10,8 @@ class Home extends Component {
     offset: 0,
     countProduct: 0,
     hidden: false,
+    showModal: false,
+    productModal: {},
   };
 
   componentDidMount() {
@@ -61,19 +64,33 @@ class Home extends Component {
     );
   };
 
+  modalShow = (product) => {
+    this.setState({
+      productModal: product,
+      showModal: true,
+    });
+  };
+
+  modalHide = () => {
+    this.setState({
+      showModal: false,
+    });
+  };
+
   render() {
     return (
       <div>
         <div className="flex flex-row flex-wrap gap-3 p-4 justify-center md:justify-start items-center">
           {this.state.products.map((product, index) => {
             return (
-              <CardProduct
-                key={index}
-                sku={product.id}
-                name={product.name}
-                price={product.price}
-                image={product.image}
-              />
+              <div key={index} onClick={() => this.modalShow(product)}>
+                <CardProduct
+                  sku={product.sku}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image}
+                />
+              </div>
             );
           })}
         </div>
@@ -86,6 +103,11 @@ class Home extends Component {
             </div>
           )}
         </div>
+        <Modal
+          data={this.state.productModal}
+          show={this.state.showModal}
+          onClose={() => this.modalHide()}
+        />
       </div>
     );
   }
