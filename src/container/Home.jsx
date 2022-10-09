@@ -65,6 +65,7 @@ class Home extends Component {
   };
 
   modalShow = (product) => {
+    document.body.style.overflow = "hidden";
     this.setState({
       productModal: product,
       showModal: true,
@@ -72,6 +73,7 @@ class Home extends Component {
   };
 
   modalHide = () => {
+    document.body.style.overflow = "unset";
     this.setState({
       showModal: false,
     });
@@ -83,7 +85,11 @@ class Home extends Component {
         <div className="flex flex-row flex-wrap gap-3 p-4 justify-center md:justify-start items-center">
           {this.state.products.map((product, index) => {
             return (
-              <div key={index} onClick={() => this.modalShow(product)}>
+              <div
+                key={index}
+                onClick={() => this.modalShow(product)}
+                className="cursor-pointer hover:opacity-80"
+              >
                 <CardProduct
                   sku={product.sku}
                   name={product.name}
