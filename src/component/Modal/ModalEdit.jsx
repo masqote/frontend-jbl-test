@@ -5,7 +5,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import Home from "../../container/Home";
 
-const Modal = (props) => {
+const ModalEdit = (props) => {
   // console.log(props);
   let data = props.data;
   const [product, setProduct] = useState({});
@@ -131,4 +131,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default ModalEdit;
