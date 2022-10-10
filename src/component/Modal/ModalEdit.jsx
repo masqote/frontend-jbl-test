@@ -44,6 +44,24 @@ const ModalEdit = (props) => {
       });
   };
 
+  const deleteProduct = async () => {
+    await axios
+      .post(`http://localhost:1234/delete-product/${data.id}`, {})
+      .then((res) => {
+        var result = window.confirm(
+          "Are you sure delete product " + product.name + " ?"
+        );
+        if (result) {
+          alert("berhasil delete product : " + product.name);
+          props.onClose();
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="modal-content bg-white w-3/4  px-4 divide-y-2 rounded">
@@ -60,6 +78,7 @@ const ModalEdit = (props) => {
             <div className="w-4/12">
               <label className="text-sm">SKU :</label>
               <Text
+                disabled={true}
                 value={product.sku ?? ""}
                 name="sku"
                 placeholder="Product SKU"
@@ -118,12 +137,19 @@ const ModalEdit = (props) => {
             </div>
           </div>
         </div>
-        <div className="modal-footer py-4 flex justify-end items-center space-x-2">
-          <div onClick={props.onClose}>
-            <ButtonDefault name="Close" color="bg-danger" />
+        <div className="modal-footer py-4 flex justify-between items-center space-x-2">
+          <div>
+            <div onClick={deleteProduct}>
+              <ButtonDefault name="Delete" color="bg-danger" />
+            </div>
           </div>
-          <div onClick={updateProduct}>
-            <ButtonDefault name="Submit" />
+          <div className="flex flex-row space-x-2">
+            <div onClick={props.onClose}>
+              <ButtonDefault name="Close" color=" bg-orange-500" />
+            </div>
+            <div onClick={updateProduct}>
+              <ButtonDefault name="Submit" />
+            </div>
           </div>
         </div>
       </div>

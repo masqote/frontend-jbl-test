@@ -103,7 +103,7 @@ const ModalAdd = (props) => {
         </div>
         <div className="modal-footer py-4 flex justify-end items-center space-x-2">
           <div onClick={props.onClose}>
-            <ButtonDefault name="Close" color="bg-danger" />
+            <ButtonDefault name="Close" color=" bg-orange-500" />
           </div>
           <div onClick={addProduct}>
             <ButtonDefault name="Submit" />
