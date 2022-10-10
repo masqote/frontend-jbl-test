@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CardProduct from "../component/Card/CardProduct";
+import CardProduct from "../component/Card/Product";
 import Modal from "../component/Modal/Modal";
 import axios from "axios";
 

@@ -1,4 +1,4 @@
-const CardProduct = (props) => {
+const Product = (props) => {
   function currencyFormat(num) {
     return "Rp " + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
@@ -31,7 +31,7 @@ const CardProduct = (props) => {
   );
 };
 
-CardProduct.defaultProps = {
+Product.defaultProps = {
   sku: "Hello",
   name: "Default",
   price: 0,
@@ -39,4 +39,4 @@ CardProduct.defaultProps = {
     "https://i.picsum.photos/id/681/270/270.jpg?hmac=M6H7IGrXsqbU_bcBiFLcaNv1QtKB4wJheeEo0ei6PrE",
 };
 
-export default CardProduct;
+export default Product;
