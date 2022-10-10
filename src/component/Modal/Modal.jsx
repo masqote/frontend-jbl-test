@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ButtonDefault from "../Button/Default";
 import Text from "../Input/Text";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import Home from "../../container/Home";
 
 const Modal = (props) => {
   // console.log(props);
@@ -12,6 +15,9 @@ const Modal = (props) => {
     setProduct({
       sku: data.sku,
       name: data.name,
+      image: data.image,
+      price: data.price,
+      description: data.description,
     });
   }, [data]);
 
@@ -19,8 +25,23 @@ const Modal = (props) => {
     return null;
   }
 
-  const updateProduct = () => {
-    console.log(product);
+  const updateProduct = async () => {
+    await axios
+      .put(`http://localhost:1234/update-product/${data.id}`, {
+        sku: product.sku,
+        name: product.name,
+        image: product.image,
+        price: product.price,
+        description: product.description,
+      })
+      .then((res) => {
+        alert("berhasil update product : " + res.data.data.name);
+        props.onClose();
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -34,7 +55,7 @@ const Modal = (props) => {
             X
           </div>
         </div>
-        <div className="modal-body py-4 ">
+        <div className="modal-body py-4 space-y-3">
           <div className="w-full flex flex-row space-x-2">
             <div className="w-4/12">
               <label className="text-sm">SKU :</label>
@@ -55,6 +76,43 @@ const Modal = (props) => {
                 placeholder="Input Product Name"
                 onValueChange={(val) =>
                   handleValueChange(setProduct({ ...product, name: val }))
+                }
+              />
+            </div>
+            <div className="w-4/12">
+              <label className="text-sm">Price :</label>
+              <Text
+                value={product.price ?? ""}
+                name="price"
+                placeholder="Input Price"
+                onValueChange={(val) =>
+                  handleValueChange(setProduct({ ...product, price: val }))
+                }
+              />
+            </div>
+          </div>
+          <div className="w-full flex flex-row space-x-2">
+            <div className="w-4/12">
+              <label className="text-sm">Image :</label>
+              <Text
+                value={product.image ?? ""}
+                name="image"
+                placeholder="Input Image"
+                onValueChange={(val) =>
+                  handleValueChange(setProduct({ ...product, image: val }))
+                }
+              />
+            </div>
+            <div className="w-8/12">
+              <label className="text-sm">Description :</label>
+              <Text
+                value={product.description ?? ""}
+                name="description"
+                placeholder="Input Description"
+                onValueChange={(val) =>
+                  handleValueChange(
+                    setProduct({ ...product, description: val })
+                  )
                 }
               />
             </div>

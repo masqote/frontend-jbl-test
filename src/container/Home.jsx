@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CardProduct from "../component/Card/Product";
 import Modal from "../component/Modal/Modal";
 import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom";
 
 class Home extends Component {
   state = {
@@ -82,6 +83,10 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <div className=" bg-white font-semibold shadow-lg p-3 flex justify-center space-x-10 ">
+          <Link to="/">Home</Link>
+          <Link to="/import">Import Product</Link>
+        </div>
         <div className="flex flex-row flex-wrap gap-3 p-4 justify-center md:justify-start items-center">
           {this.state.products.map((product, index) => {
             return (

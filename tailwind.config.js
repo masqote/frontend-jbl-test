@@ -1,8 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: "jit",
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   presets: [],
   darkMode: "media", // or 'class'
+  variants: {
+    extend: {
+      opacity: ["disabled"],
+      cursor: ["disabled"],
+    },
+  },
   theme: {
     screens: {
       sm: "640px",

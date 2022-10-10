@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import About from "../container/About";
+import Import from "../container/Import";
 import Home from "../container/Home";
 
 class BaseRoute extends Component {
@@ -9,7 +9,7 @@ class BaseRoute extends Component {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="about" element={<About />} />
+          <Route path="/import" element={<Import />} />
         </Routes>
       </BrowserRouter>
     );
