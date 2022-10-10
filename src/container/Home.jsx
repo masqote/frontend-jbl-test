@@ -52,6 +52,11 @@ class Home extends Component {
             hidden: true,
           });
         }
+      })
+      .catch((err) => {
+        this.setState({
+          hidden: true,
+        });
       });
   }
 
